@@ -1,0 +1,169 @@
+= Mondrian in Action
+:hardbreaks:
+:toc:
+:sectnums:
+
+== Beyond reporting: bussiness analitycs
+=== The need for bussines analytics.
+=== Replacing static reports with online analytical processing(OLAP).
+=== OLAP to the rescue.
+==== Mondrian let users drive analytics.
+==== Mondrian is low cost, low risk solution.
+==== Mondrian is fast.
+==== Mondrian is secure.
+==== Mondrian is based on open standarts.
+=== Sumary.
+== Mondrian a firt look.
+=== Mondrian role in analytics.
+=== Running and using Mondrian.
+==== Getting and running the software.
+==== Navigating and viewing reports.
+==== Interactive analytics.
+==== MDX analitics with saiku.
+=== Multidimensional modeling.
+==== Sample report.
+==== Modeling bussines questions.
+=== Getting and ordering the data.
+==== The data warehouse: physical storing the data.
+==== Examining the Adventure Works data.
+==== Populating the data.
+== Creating the Data Mart.
+=== Structuring data for analytics.
+==== Characteristics of analytics systems.
+==== Data Architecture for analytics.
+==== Star schemas.
+==== Comparing star schemas with 3NF.
+==== Star schemas benefits.
+=== Additional star schema modeling techniques.
+==== Slowly Changing Dimensions (SCD's).
+==== Time Dimensions.
+==== SnowFlake design.
+==== Degenerate and combination/junk dimensions.
+=== Sumary.
+== Multidimensional modeling: making analytics data accesible.
+=== A simple schema.
+==== Schema element. 
+==== Cube element.
+==== Attribute element.
+==== Dimension element.
+==== Measure element.
+==== PhysicalSchema element.
+=== Anatomy of a schema.
+==== XML schema files.
+==== Structure of schema.
+==== Schema versioning and upgrading.
+=== Dimensions, hierachies and levels.
+==== Hierarchies and levels.
+==== Time dimension. 
+==== Attribute hierarchies.
+==== The measures dimension.
+=== Summary.
+== How schemas grow.
+=== Schema evolution.
+==== Multiple cubes in a schema.
+==== Shared dimensions.
+==== Conformed dimensions. 
+==== Using a dimension twice in the same cube.
+==== Measures across multiple fact tables.
+==== Smart evolution: multiples cubes versus single cubes.
+==== Other schema evolution patterns.
+=== Alternativa ways to store dimensions.
+==== Star dimensions.
+==== Snowflake dimensions.
+==== Degenerate dimensions.
+=== Advanced hierarchy structures.
+==== Parent-child hierarchies.
+==== Ragged hierarchies.
+=== Calculations.
+==== Bucketing attributes.
+==== Calculated members.
+=== Summary.
+== Security data.
+=== Use of roles.
+==== What's a role.
+==== Declaring roles in the mondrian schema.
+==== Enforcement of roles.
+=== Security grants.
+==== Schema grants.
+==== Cube grants.
+==== Dimension and hierarchy grants.
+==== Member grants.
+==== Measure grants.
+=== Summary. 
+== Maximizing Mondrian performance.
+=== Figuring out where the problem are.
+==== Performance improvement process.
+==== Preparing for performance  analysis and establishing current performance.
+=== Tunning the database.
+=== Aggregate tables.
+==== Creating aggregate tables.
+==== Declaring an aggregate table.
+==== Which aggregates should create.
+=== Caching.
+==== Types of caches.
+==== External segment cache.
+=== Priming the cache.
+=== Flushing the cache.
+==== Flushing the schema cache.
+==== Flushing specific cubes.
+==== Flushing specific regions of the cache.
+==== Summary.
+== Dinamyc security.
+=== Preparing for dynamic security.
+==== Creating an action sequence.
+==== Configuring and running the action sequence.
+=== Restricting data usion a dynamic schema processor.
+==== Modifying the schema to support a DSP.
+==== Example of DSP.
+==== Configuring the DSP.
+=== Restricting data using dynamic role modification.
+==== Preparing the schema.
+==== Custom MDX connection.
+==== Custom delegate role and custom hierarchy access.
+==== Configuring the custom MDX connection.
+=== Deciding which security approach to use.
+=== Summary.
+== Working with Mondrian and Pentaho.
+=== Pentaho Analyzer.
+==== Overview of Pentaho Analyzer.
+==== Using analyzer for analysis.
+==== Charting with analyzer.
+==== Special schema annotations for using Analyzer.
+=== Saiku.
+=== Community DashBoard Framework.
+==== Creating a CDF dashboard.
+==== Using community data access.
+=== Pentaho report dessigner.
+==== Creating an OLAP data source.
+==== Using parameters.
+==== PRD and the dynamic schema processor.
+=== Pentaho Data Integration.
+=== Summary.
+== Developing with Mondrian.
+=== Calling Mondrian from a thin client.
+==== XML for a Analysis (XMLA).
+==== Configuring Mondrian as an XMLA web service.
+==== Calling XMLA services with Ajax.
+==== XMLA for JavaScript (xmla4js).
+=== Calling Mondrian from Java Application.
+==== Creating connections via olap4j.
+==== Queryng data.
+=== Summary.
+== Advanced analytics.
+=== Advanced analytics in Mondrian with MDX.
+==== Running MDX querys.
+==== Ratios and growth.
+==== Time-specific MDX.
+==== Advanced MDX.
+=== What-if analysis.
+=== Stadistics and machine learning.
+==== R.
+==== Weka.
+=== Big Data.
+==== Analytics databases.
+==== Hadoop and Hive.
+==== NoSQL systems and Hadoop.
+=== Summary.
+== Appendix A: Installing and running Mondrian.
+== Appendix B: Online resources.
+== Appendix C: Schema shorcuts.
