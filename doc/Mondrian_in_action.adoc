@@ -4,16 +4,104 @@
 :sectnums:
 
 == Beyond reporting: bussiness analitycs
+
+
 === The need for bussines analytics.
+* OLAP: Online analytical processing is a technology that makes business
+data available with enough structure for business users to easily explore data and discover important data relationships without having to understand database query languages or the organization of a company’s operational databases.
+* Mondrian is an open source OLAP engine that provides access to data in a way
+that’s intuitive to users. As an engine, Mondrian can be run in a web container, such as
+Tomcat or JBoss, or be embedded as part of an application. Mondrian only requires
+an optional configuration, a schema defining the logical structure of the data, and a
+database populated with data. Mondrian works with most databases that support Java
+database connections.
+
 === Replacing static reports with online analytical processing(OLAP).
 === OLAP to the rescue.
+
+
+
+
+
+
+
+
 ==== Mondrian let users drive analytics.
+
+*   Mondrian supports user-driven analysis. Users are able to do their own analysis
+without a lot of help from administrators or report writers.
+
 ==== Mondrian is low cost, low risk solution.
+*   Mondrian is a low-cost, low-risk choice. Mondrian is open source and can be
+downloaded for free. Mondrian also comes bundled with a number of analysis
+tools and suites that make it easy to install and start using.
+
+image::images/Figure1.9.png[]
+
+
+
+
+.  A business user decides to query some data using a number of different front
+ends, typically a thin-client interface, such as Pentaho Analyzer.
+
+. The interface creates a Multidimensional Expressions (MDX) query using
+either a web service call or a direct API call. MDX is a standardized general
+query language used for analysis and supported by most analytics engines. The
+advantage of MDX is that it simplifies the calls to the database while also being
+extremely powerful. It’s also a common dialect that can be used no matter what
+database the data is stored in. Some user interfaces will allow users to directly
+enter or modify queries in MDX, allowing users who are comfortable with MDX
+syntax to perform more complex queries and use the many functions available
+in MDX.
+
+. Mondrian uses a logical schema, organized into cubes of dimensions (attributes
+about the data, such as date and location) and measures (the actual data facts,
+such as cost, inventory level, and the like). The schema also provides features
+for performance optimization and security. Mondrian uses this schema to
+retrieve the data either from an in-memory cache or by generating optimized
+database calls. Mondrian automatically creates correct SQL for a wide number
+of databases.
+
+. Mondrian generates SQL queries based on the metadata description and makes
+a database request.
+
+. The database returns a result set of data to Mondrian.
+
+. Mondrian returns the data to the user interface, using a standard API that is understood by the visualization tool.
+
+. Finally, the data is formatted graphically for the user in a tabular format that’s easy to understand and manipulate.
+
 ==== Mondrian is fast.
+*   Mondrian is fast. It has a variety of optimization techniques that allow users to
+perform analysis at the speed of thought using interactive tools.
+
+** Agregates.
+** Caching.
+
 ==== Mondrian is secure.
+*   Mondrian has built-in security capabilities, making it ideal for organizations
+with sensitive data.
+
+
 ==== Mondrian is based on open standarts.
+
+
+*   Mondrian is based on open standards. It runs on a large variety of application
+servers and works with most major databases. This means Mondrian won’t lock
+you into a proprietary solution.
+
+* In particular, Mondrian supports the following standards:
+
+**   olap4j: An open standard for OLAP via Java
+
+**   XMLA: A standard for system-to-system interaction based on SOAP
+
+**   XML: A standard markup language that lets you create Mondrian schemas with a simple text editor
+
 === Sumary.
+
 == Mondrian a firt look.
+
 === Mondrian role in analytics.
 === Running and using Mondrian.
 ==== Getting and running the software.
