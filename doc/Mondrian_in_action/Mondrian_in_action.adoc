@@ -20,12 +20,6 @@ database connections.
 === OLAP to the rescue.
 
 
-
-
-
-
-
-
 ==== Mondrian let users drive analytics.
 
 *   Mondrian supports user-driven analysis. Users are able to do their own analysis
@@ -86,9 +80,7 @@ with sensitive data.
 ==== Mondrian is based on open standarts.
 
 
-*   Mondrian is based on open standards. It runs on a large variety of application
-servers and works with most major databases. This means Mondrian won’t lock
-you into a proprietary solution.
+*   Mondrian is based on open standards. It runs on a large variety of application servers and works with most major databases. This means Mondrian won’t lock you into a proprietary solution.
 
 * In particular, Mondrian supports the following standards:
 
@@ -103,18 +95,100 @@ you into a proprietary solution.
 == Mondrian a firt look.
 
 === Mondrian role in analytics.
+
+
+
+.Some products that use Mondrian
+[width="90%",frame="topbot",options="heade"]
+|=======
+|Name |Description
+|Pentaho Analyzer |Pentaho’s enterprise analysis UI that provides interactive analysis with tables and graphs.
+|Pentaho Reporting |A reporting tool that creates pixel-perfect reports using Mondrian data.
+|Community Dashboard Framework|A popular open source dashboard framework for creating interactive dashboards.
+|Saiku| A free open source analytics tool that provides interactive analysis with tables and graphs. Saiku is available as a Pentaho plugin or a standalone product.
+|=======
+
+
 === Running and using Mondrian.
+
+
+.Pentaho comes in two flavors: 
+* Community Edition (CE) 
+* Enterprise Edition(EE): requires the purchase of licenses but comes
+with additional features and support.
+
 ==== Getting and running the software.
 ==== Navigating and viewing reports.
 ==== Interactive analytics.
 ==== MDX analitics with saiku.
+
+* Saiku lets you go beyond drag and drop and perform advanced analysis using
+MDX queries. 
+* Multidimensional Expressions (MDX) is a query language for OLAP
+that allows you to use advanced techniques, such ratio to reported, parallel period comparisons, period over period growth, traffic lighting, and so forth.
+
 === Multidimensional modeling.
+
+
+Mondrian, as an OLAP engine,
+presents data multidimensionally: the content are data facts that the business analysts want to know about, such as sales and inventory, and the dimensions are attributes about the data for analysis, such as warehouse, geography, customer demographics, and so on.
+
 ==== Sample report.
+image::images/Figure2.10.png[]
+
+[source,]
+----
+
+SELECT {[Measures].[Units],
+        [Measures].[Store Sales]} ON COLUMNS,
+   Crossjoin([Time].[Year].Members,
+             [Customer].[Education].Members) ON ROWS
+----
+
+
+image::images/Figure2.10.1.png[]
 ==== Modeling bussines questions.
+
+
+IMPORTANT: EVOLVING A SCHEMA Mondrian makes it easy to evolve a schema by adding attributes, dimensions, measures, and calculations when you need them. The dimensional model can be gleaned by listening to the business user’s question.
+
+
+
+.Each of the key concepts will likely turn into a cube, an attribute, a dimension, or a measure. 
+* Attributes correspond to nouns, and attributes that are related (because
+they describe the same entity in the business) are grouped into dimensions. 
+* Quantifiable values are measures. 
+* Cubes describe business processes, so they tend to appear as verbs. If the business user says “compare based on ...” or “break down by ...”, the next noun will likely be something that will become an attribute in the dimensional model.
+
+
+
+.In summary:
+
+* Measures are the quantities you use to analyze a business process.
+* Attributes are how you slice the set of measurements into regions that you can compare.
+* Dimensions are convenient collections of attributes.
+* Cubes contain the measures, attributes, and dimensions necessary to answer a particular business question.
+
 === Getting and ordering the data.
+
+image::images/Figure2.11.png[]
+
 ==== The data warehouse: physical storing the data.
+
+* Mondrian is a *relational OLAP (ROLAP)* engine, meaning that the data is stored in a relational database and Mondrian translates MDX queries into SQL queries for the particular RDBMS you use for storage. 
+
+* star schemas: The star schema is simplified by combining related data into single, denormalized tables.footnoteref:[For example, the City-State, State-Country, Country-Territory tables are all combined into a Geography table. This means that there are multiple copies of a state to country mapping, increasing data storage and possibly requiring the update of multiple records should a mapping change (for example, if a country splits into multiple countries). In chapter 3, we’ll talk about ways to avoid the redundancy, but the choice
+is generally to pay for additional storage to get faster analysis. The time of a business analyst is usually worth much more than the cost of additional storage space.]
+
 ==== Examining the Adventure Works data.
 ==== Populating the data.
+
+* The data in the warehouse is populated via a process known as extract, transform, and load (ETL).
+* An additional benefit of moving data from transactional systems to analytics systems is that the multiple data sources can be combined into a single data warehouse.
+* Pentaho also provides an open source tool called *Kettle* (a.k.a. Pentaho Data Integration, or *PDI*) that makes ETL much easier. 
+* Kettle provides a graphical interface, called *Spoon*, that allows users to graphically create sequences of steps to manipulate data. 
+
+
 == Creating the Data Mart.
 === Structuring data for analytics.
 ==== Characteristics of analytics systems.
