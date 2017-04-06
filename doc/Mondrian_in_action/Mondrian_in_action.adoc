@@ -285,6 +285,7 @@ image::images/Figure3.8.png[]
 directly in the fact table, eliminating the separate table and additional join entirely.
 * Mondrian can be configured so that columns in the fact table still show as a separate dimension, but will use the columns directly from the fact table without doing any additional joins.
 * This only works for small, low-ordinality columns or very large high-growth attributes that grow with the fact table.
+
 .Combination/junk dimensions.
 * There’s another technique for taking lots of single-attribute degenerate dimensions, and putting them back into a standard dimension of unrelated attributes.
 * Junk dimensions are created in a unique way: a Cartesian product of all possible combinations of attributes is created, along with a surrogate key. Then, when you’re loading the fact table, the loading process looks into the junk dimensions to grab the record with the correct set of attributes.
