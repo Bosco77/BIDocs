@@ -190,17 +190,105 @@ is generally to pay for additional storage to get faster analysis. The time of a
 
 
 == Creating the Data Mart.
+Mondrian has adopted the use of star schema structures based on industry best practices.
+
 === Structuring data for analytics.
 ==== Characteristics of analytics systems.
+*   Fast.
+*   Consistent and accurate.
+* Information focused.
+
 ==== Data Architecture for analytics.
+
+* Copy data to systems dedicated for analytics.
+* Transform, clean, and enrich data for analytics.
+--
+Analytics should be done on separate computer resources and include data that has been cleaned, transformed, and enriched from multiple source systems.
+--
+
+image::images/Figure3.1.png[]
 ==== Star schemas.
+
+* For all intents and purposes, Mondrian expects your data to be in a relational database, in the star schema format (or one of its closely related permutations). The starschema, as a set of relational database tables, is what Mondrian uses as the basis to perform aggregations and analytics.
+* A star schema consists of a fact table surrounded by multiple dimension tables. The shape of a fact surrounded by dimensions is how the star schema gets its name.
+** _**Fact tables**_ contain the stuff you’re trying to aggregate, total, and measure. 
+** The numbers that are added together to create the total sales number are contained in the fact table and are referred to as the *__measures__* in the cubes.
+
+** *__Dimension__* tables contain the qualifying attributes that you want to split out those numbers (the measures) by. 
+
+.Physical database model:
+*   *__Dimension__* 
+** tables that contain rows, independent of the transactions that have the attributes. 
+** For instance, a product dimension would contain a row per product and contain information on product categories, vendors, departments, and the like. 
+** Typically this foreign key is also non-nullable, so that you can aggregate the table at any combination of dimensions and always get the same sum total.
+**  Dimension tables are highly denormalized.
+
+*   A single _**fact table**_ that contains a row for the individual transactions (order line items, individual clicks) matching the grain of the table (see Kimball’s book for more information on “grain”). The fact table contains a set of surrogate integer keys that easily join to the dimension tables for the attributes associated. Additionally, it will usually have one or more columns that contain the values to be aggregated, associated with that single transaction.
+
 ==== Comparing star schemas with 3NF.
+.The 3NF modeling techniques are ideal in the following situations:
+* Lots of concurrent users reading and modifying data—Keeping similar data together.
+* Subprograms and people are accessing small slices of data.
+* Source systems usually access smaller slices of data joined together with a foreign key.
+
 ==== Star schemas benefits.
+* Star schemas require at most one pass through the table. 
+* Missing join keys don’t cause sum-total issues in star schemas. 
+* Many databases have physical optimizations for star schemas. 
+* Star schemas are the preferred structure for Mondrian, but they’re also easier for anyone writing SQL.
+
 === Additional star schema modeling techniques.
+* Techniques for handling changes to dimension data over time.
+* Performance enhancements.
+
 ==== Slowly Changing Dimensions (SCD's).
+
+Imagine one customer (Bob) who changes his residence, their purchases can appear in the actual residence, the old one or each in the place where the customer lived when the purchase occurred.
+
+* SCD Type 1:  
+** Is a dimensional modeling technique that, as in our example source system, keeps a single version of the entity.No history of changes is kept.
+** Type I dimensions are often used for items that don’t change frequently.
+* SCD Type 2:
+** SCD Type II dimensions keep a history of changes to the attributes of the dimension. For Type II dimensions, the surrogate key is meaningless and it’s used only as a simple, single-key join from the fact table.
+** There is a new unique key that’s normally omitted from the physical database schema but is a logical constraint: a combination of the natural key and the effective date identifies unique records in a dimension.
+** When loading the fact table, the ETL system examines the date of the sale
+(sales_date) and chooses which version of the dimension key to use. 
+** SCD Type II dimensions are used when a history of changes and attributes is needed. This is very common, and Type II dimensions are used much of the time.
+
+** SCD Type III dimensions are often used when you bring in a second classification system, and you don’t think of it as a “change” so
+much as an additional method of bucketing or classifying.
+
 ==== Time Dimensions.
+
+* Time dimensions are denormalized Type I dimensions where the natural (and usually the primary) key is the date. Type I is almost always appropriate because the attributes rarely change. 
+
+* All of the relevant pieces of the date, such as the month name, quarter, and day of the week, are denormalized and included as columns in the table.
+
+* The key of 1 of January 2017 would be 20170101.
+
 ==== SnowFlake design.
+You can use one level of normalization on dimensions (anadditional join) for various operational and performance reasons.
+
+image::images/Figure3.8.png[]
+
+.Use of snowflake:
+
+*   To reduce the size of dimension tables by factoring out seldom used but really big columns.
+
+
+*   To more easily manage a Type I type attribute in an otherwise Type II dimension.Consider the snowflake design in figure 3.8, where we’ve factored out countries from customer. It’s likely that many customer attributes will change over time (including which country the customer lives in) and will need to be managed as Type II dimensions. The attributes of the country, however, such as its name, tend to be Type I changes when they happen (updates, without any history). 
+
 ==== Degenerate and combination/junk dimensions.
+.Degenerate Dimension
+* There are times when creating a whole separate dimension table, including a foreign key reference, and then grouping by attribute just doesn’t make sense for performance reasons. 
+* For the single attribute dimensions (channel and sales type) it seems overkill to maintain entire dimensions with only single-attribute, low-ordinality dimensions. We can include these attributes as columns
+directly in the fact table, eliminating the separate table and additional join entirely.
+* Mondrian can be configured so that columns in the fact table still show as a separate dimension, but will use the columns directly from the fact table without doing any additional joins.
+* This only works for small, low-ordinality columns or very large high-growth attributes that grow with the fact table.
+.Combination/junk dimensions.
+* There’s another technique for taking lots of single-attribute degenerate dimensions, and putting them back into a standard dimension of unrelated attributes.
+* Junk dimensions are created in a unique way: a Cartesian product of all possible combinations of attributes is created, along with a surrogate key. Then, when you’re loading the fact table, the loading process looks into the junk dimensions to grab the record with the correct set of attributes.
+
 === Sumary.
 == Multidimensional modeling: making analytics data accesible.
 === A simple schema.
