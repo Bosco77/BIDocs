@@ -1,0 +1,1858 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.9" />
+<title>Mondrian in Action</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+pre {
+  white-space: pre-wrap;
+}
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; vertical-align: text-bottom; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install(2);
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>Mondrian in Action</h1>
+<div id="toc">
+  <div id="toctitle">Table of Contents</div>
+  <noscript><p><b>JavaScript must be enabled in your browser to display the table of contents.</b></p></noscript>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_beyond_reporting_bussiness_analitycs">Beyond reporting: bussiness analitycs</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_the_need_for_bussines_analytics">The need for bussines analytics.</h3>
+<div class="ulist"><ul>
+<li>
+<p>
+OLAP: Online analytical processing is a technology that makes business
+data available with enough structure for business users to easily explore data and discover important data relationships without having to understand database query languages or the organization of a company’s operational databases.
+</p>
+</li>
+<li>
+<p>
+Mondrian is an open source OLAP engine that provides access to data in a way
+that’s intuitive to users. As an engine, Mondrian can be run in a web container, such as
+Tomcat or JBoss, or be embedded as part of an application. Mondrian only requires
+an optional configuration, a schema defining the logical structure of the data, and a
+database populated with data. Mondrian works with most databases that support Java
+database connections.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect2">
+<h3 id="_replacing_static_reports_with_online_analytical_processing_olap">Replacing static reports with online analytical processing(OLAP).</h3>
+</div>
+<div class="sect2">
+<h3 id="_olap_to_the_rescue">OLAP to the rescue.</h3>
+<div class="sect3">
+<h4 id="_mondrian_let_users_drive_analytics">Mondrian let users drive analytics.</h4>
+<div class="ulist"><ul>
+<li>
+<p>
+Mondrian supports user-driven analysis. Users are able to do their own analysis
+without a lot of help from administrators or report writers.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_mondrian_is_low_cost_low_risk_solution">Mondrian is low cost, low risk solution.</h4>
+<div class="ulist"><ul>
+<li>
+<p>
+Mondrian is a low-cost, low-risk choice. Mondrian is open source and can be
+downloaded for free. Mondrian also comes bundled with a number of analysis
+tools and suites that make it easy to install and start using.
+</p>
+</li>
+</ul></div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Figure1.9.png" alt="images/Figure1.9.png" />
+</div>
+</div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+A business user decides to query some data using a number of different front
+ends, typically a thin-client interface, such as Pentaho Analyzer.
+</p>
+</li>
+<li>
+<p>
+The interface creates a Multidimensional Expressions (MDX) query using
+either a web service call or a direct API call. MDX is a standardized general
+query language used for analysis and supported by most analytics engines. The
+advantage of MDX is that it simplifies the calls to the database while also being
+extremely powerful. It’s also a common dialect that can be used no matter what
+database the data is stored in. Some user interfaces will allow users to directly
+enter or modify queries in MDX, allowing users who are comfortable with MDX
+syntax to perform more complex queries and use the many functions available
+in MDX.
+</p>
+</li>
+<li>
+<p>
+Mondrian uses a logical schema, organized into cubes of dimensions (attributes
+about the data, such as date and location) and measures (the actual data facts,
+such as cost, inventory level, and the like). The schema also provides features
+for performance optimization and security. Mondrian uses this schema to
+retrieve the data either from an in-memory cache or by generating optimized
+database calls. Mondrian automatically creates correct SQL for a wide number
+of databases.
+</p>
+</li>
+<li>
+<p>
+Mondrian generates SQL queries based on the metadata description and makes
+a database request.
+</p>
+</li>
+<li>
+<p>
+The database returns a result set of data to Mondrian.
+</p>
+</li>
+<li>
+<p>
+Mondrian returns the data to the user interface, using a standard API that is understood by the visualization tool.
+</p>
+</li>
+<li>
+<p>
+Finally, the data is formatted graphically for the user in a tabular format that’s easy to understand and manipulate.
+</p>
+</li>
+</ol></div>
+</div>
+<div class="sect3">
+<h4 id="_mondrian_is_fast">Mondrian is fast.</h4>
+<div class="ulist"><ul>
+<li>
+<p>
+Mondrian is fast. It has a variety of optimization techniques that allow users to
+perform analysis at the speed of thought using interactive tools.
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+Agregates.
+</p>
+</li>
+<li>
+<p>
+Caching.
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_mondrian_is_secure">Mondrian is secure.</h4>
+<div class="ulist"><ul>
+<li>
+<p>
+Mondrian has built-in security capabilities, making it ideal for organizations
+with sensitive data.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_mondrian_is_based_on_open_standarts">Mondrian is based on open standarts.</h4>
+<div class="ulist"><ul>
+<li>
+<p>
+Mondrian is based on open standards. It runs on a large variety of application servers and works with most major databases. This means Mondrian won’t lock you into a proprietary solution.
+</p>
+</li>
+<li>
+<p>
+In particular, Mondrian supports the following standards:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+olap4j: An open standard for OLAP via Java
+</p>
+</li>
+<li>
+<p>
+XMLA: A standard for system-to-system interaction based on SOAP
+</p>
+</li>
+<li>
+<p>
+XML: A standard markup language that lets you create Mondrian schemas with a simple text editor
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sumary">Sumary.</h3>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mondrian_a_firt_look">Mondrian a firt look.</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_mondrian_role_in_analytics">Mondrian role in analytics.</h3>
+<div class="tableblock">
+<table rules="all"
+width="90%"
+frame="hsides"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 1. Some products that use Mondrian</caption>
+<col width="50%" />
+<col width="50%" />
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">Name</p></td>
+<td align="left" valign="top"><p class="table">Description</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Pentaho Analyzer</p></td>
+<td align="left" valign="top"><p class="table">Pentaho’s enterprise analysis UI that provides interactive analysis with tables and graphs.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Pentaho Reporting</p></td>
+<td align="left" valign="top"><p class="table">A reporting tool that creates pixel-perfect reports using Mondrian data.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Community Dashboard Framework</p></td>
+<td align="left" valign="top"><p class="table">A popular open source dashboard framework for creating interactive dashboards.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Saiku</p></td>
+<td align="left" valign="top"><p class="table">A free open source analytics tool that provides interactive analysis with tables and graphs. Saiku is available as a Pentaho plugin or a standalone product.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_running_and_using_mondrian">Running and using Mondrian.</h3>
+<div class="ulist"><div class="title">Pentaho comes in two flavors:</div><ul>
+<li>
+<p>
+Community Edition (CE)
+</p>
+</li>
+<li>
+<p>
+Enterprise Edition(EE): requires the purchase of licenses but comes
+with additional features and support.
+</p>
+</li>
+</ul></div>
+<div class="sect3">
+<h4 id="_getting_and_running_the_software">Getting and running the software.</h4>
+</div>
+<div class="sect3">
+<h4 id="_navigating_and_viewing_reports">Navigating and viewing reports.</h4>
+</div>
+<div class="sect3">
+<h4 id="_interactive_analytics">Interactive analytics.</h4>
+</div>
+<div class="sect3">
+<h4 id="_mdx_analitics_with_saiku">MDX analitics with saiku.</h4>
+<div class="ulist"><ul>
+<li>
+<p>
+Saiku lets you go beyond drag and drop and perform advanced analysis using
+MDX queries.
+</p>
+</li>
+<li>
+<p>
+Multidimensional Expressions (MDX) is a query language for OLAP
+that allows you to use advanced techniques, such ratio to reported, parallel period comparisons, period over period growth, traffic lighting, and so forth.
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_multidimensional_modeling">Multidimensional modeling.</h3>
+<div class="paragraph"><p>Mondrian, as an OLAP engine,
+presents data multidimensionally: the content are data facts that the business analysts want to know about, such as sales and inventory, and the dimensions are attributes about the data for analysis, such as warehouse, geography, customer demographics, and so on.</p></div>
+<div class="sect3">
+<h4 id="_sample_report">Sample report.</h4>
+<div class="imageblock">
+<div class="content">
+<img src="images/Figure2.10.png" alt="images/Figure2.10.png" />
+</div>
+</div>
+<div class="listingblock">
+<div class="content"></div></div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Figure2.10.1.png" alt="images/Figure2.10.1.png" />
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_modeling_bussines_questions">Modeling bussines questions.</h4>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">EVOLVING A SCHEMA Mondrian makes it easy to evolve a schema by adding attributes, dimensions, measures, and calculations when you need them. The dimensional model can be gleaned by listening to the business user’s question.</td>
+</tr></table>
+</div>
+<div class="ulist"><div class="title">Each of the key concepts will likely turn into a cube, an attribute, a dimension, or a measure.</div><ul>
+<li>
+<p>
+Attributes correspond to nouns, and attributes that are related (because
+they describe the same entity in the business) are grouped into dimensions.
+</p>
+</li>
+<li>
+<p>
+Quantifiable values are measures.
+</p>
+</li>
+<li>
+<p>
+Cubes describe business processes, so they tend to appear as verbs. If the business user says “compare based on &#8230;” or “break down by &#8230;”, the next noun will likely be something that will become an attribute in the dimensional model.
+</p>
+</li>
+</ul></div>
+<div class="ulist"><div class="title">In summary:</div><ul>
+<li>
+<p>
+Measures are the quantities you use to analyze a business process.
+</p>
+</li>
+<li>
+<p>
+Attributes are how you slice the set of measurements into regions that you can compare.
+</p>
+</li>
+<li>
+<p>
+Dimensions are convenient collections of attributes.
+</p>
+</li>
+<li>
+<p>
+Cubes contain the measures, attributes, and dimensions necessary to answer a particular business question.
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getting_and_ordering_the_data">Getting and ordering the data.</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/Figure2.11.png" alt="images/Figure2.11.png" />
+</div>
+</div>
+<div class="sect3">
+<h4 id="_the_data_warehouse_physical_storing_the_data">The data warehouse: physical storing the data.</h4>
+<div class="ulist"><ul>
+<li>
+<p>
+Mondrian is a <strong>relational OLAP (ROLAP)</strong> engine, meaning that the data is stored in a relational database and Mondrian translates MDX queries into SQL queries for the particular RDBMS you use for storage.
+</p>
+</li>
+<li>
+<p>
+star schemas: The star schema is simplified by combining related data into single, denormalized tables.<span class="footnote" id="_footnote_For example"><br />[the City-State]<br /></span>
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_examining_the_adventure_works_data">Examining the Adventure Works data.</h4>
+</div>
+<div class="sect3">
+<h4 id="_populating_the_data">Populating the data.</h4>
+<div class="ulist"><ul>
+<li>
+<p>
+The data in the warehouse is populated via a process known as extract, transform, and load (ETL).
+</p>
+</li>
+<li>
+<p>
+An additional benefit of moving data from transactional systems to analytics systems is that the multiple data sources can be combined into a single data warehouse.
+</p>
+</li>
+<li>
+<p>
+Pentaho also provides an open source tool called <strong>Kettle</strong> (a.k.a. Pentaho Data Integration, or <strong>PDI</strong>) that makes ETL much easier.
+</p>
+</li>
+<li>
+<p>
+Kettle provides a graphical interface, called <strong>Spoon</strong>, that allows users to graphically create sequences of steps to manipulate data.
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_creating_the_data_mart">Creating the Data Mart.</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Mondrian has adopted the use of star schema structures based on industry best practices.</p></div>
+<div class="sect2">
+<h3 id="_structuring_data_for_analytics">Structuring data for analytics.</h3>
+<div class="sect3">
+<h4 id="_characteristics_of_analytics_systems">Characteristics of analytics systems.</h4>
+<div class="ulist"><ul>
+<li>
+<p>
+Fast.
+</p>
+</li>
+<li>
+<p>
+Consistent and accurate.
+</p>
+</li>
+<li>
+<p>
+Information focused.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_data_architecture_for_analytics">Data Architecture for analytics.</h4>
+<div class="ulist"><ul>
+<li>
+<p>
+Copy data to systems dedicated for analytics.
+</p>
+</li>
+<li>
+<p>
+Transform, clean, and enrich data for analytics.
+</p>
+</li>
+</ul></div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph"><p>Analytics should be done on separate computer resources and include data that has been cleaned, transformed, and enriched from multiple source systems.</p></div>
+</div></div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Figure3.1.png" alt="images/Figure3.1.png" />
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_star_schemas">Star schemas.</h4>
+<div class="ulist"><ul>
+<li>
+<p>
+For all intents and purposes, Mondrian expects your data to be in a relational database, in the star schema format (or one of its closely related permutations). The starschema, as a set of relational database tables, is what Mondrian uses as the basis to perform aggregations and analytics.
+</p>
+</li>
+<li>
+<p>
+A star schema consists of a fact table surrounded by multiple dimension tables. The shape of a fact surrounded by dimensions is how the star schema gets its name.
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<em><strong>Fact tables</strong></em> contain the stuff you’re trying to aggregate, total, and measure.
+</p>
+</li>
+<li>
+<p>
+The numbers that are added together to create the total sales number are contained in the fact table and are referred to as the <strong><em>measures</em></strong> in the cubes.
+</p>
+</li>
+<li>
+<p>
+<strong><em>Dimension</em></strong> tables contain the qualifying attributes that you want to split out those numbers (the measures) by.
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+<div class="ulist"><div class="title">Physical database model:</div><ul>
+<li>
+<p>
+<strong><em>Dimension</em></strong>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+tables that contain rows, independent of the transactions that have the attributes.
+</p>
+</li>
+<li>
+<p>
+For instance, a product dimension would contain a row per product and contain information on product categories, vendors, departments, and the like.
+</p>
+</li>
+<li>
+<p>
+Typically this foreign key is also non-nullable, so that you can aggregate the table at any combination of dimensions and always get the same sum total.
+</p>
+</li>
+<li>
+<p>
+Dimension tables are highly denormalized.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+A single <em><strong>fact table</strong></em> that contains a row for the individual transactions (order line items, individual clicks) matching the grain of the table (see Kimball’s book for more information on “grain”). The fact table contains a set of surrogate integer keys that easily join to the dimension tables for the attributes associated. Additionally, it will usually have one or more columns that contain the values to be aggregated, associated with that single transaction.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_comparing_star_schemas_with_3nf">Comparing star schemas with 3NF.</h4>
+<div class="ulist"><div class="title">The 3NF modeling techniques are ideal in the following situations:</div><ul>
+<li>
+<p>
+Lots of concurrent users reading and modifying data—Keeping similar data together.
+</p>
+</li>
+<li>
+<p>
+Subprograms and people are accessing small slices of data.
+</p>
+</li>
+<li>
+<p>
+Source systems usually access smaller slices of data joined together with a foreign key.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_star_schemas_benefits">Star schemas benefits.</h4>
+<div class="ulist"><ul>
+<li>
+<p>
+Star schemas require at most one pass through the table.
+</p>
+</li>
+<li>
+<p>
+Missing join keys don’t cause sum-total issues in star schemas.
+</p>
+</li>
+<li>
+<p>
+Many databases have physical optimizations for star schemas.
+</p>
+</li>
+<li>
+<p>
+Star schemas are the preferred structure for Mondrian, but they’re also easier for anyone writing SQL.
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_additional_star_schema_modeling_techniques">Additional star schema modeling techniques.</h3>
+<div class="ulist"><ul>
+<li>
+<p>
+Techniques for handling changes to dimension data over time.
+</p>
+</li>
+<li>
+<p>
+Performance enhancements.
+</p>
+</li>
+</ul></div>
+<div class="sect3">
+<h4 id="_slowly_changing_dimensions_scd_8217_s">Slowly Changing Dimensions (SCD&#8217;s).</h4>
+<div class="paragraph"><p>Imagine one customer (Bob) who changes his residence, their purchases can appear in the actual residence, the old one or each in the place where the customer lived when the purchase occurred.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+SCD Type 1:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+Is a dimensional modeling technique that, as in our example source system, keeps a single version of the entity.No history of changes is kept.
+</p>
+</li>
+<li>
+<p>
+Type I dimensions are often used for items that don’t change frequently.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+SCD Type 2:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+SCD Type II dimensions keep a history of changes to the attributes of the dimension. For Type II dimensions, the surrogate key is meaningless and it’s used only as a simple, single-key join from the fact table.
+</p>
+</li>
+<li>
+<p>
+There is a new unique key that’s normally omitted from the physical database schema but is a logical constraint: a combination of the natural key and the effective date identifies unique records in a dimension.
+</p>
+</li>
+<li>
+<p>
+When loading the fact table, the ETL system examines the date of the sale
+(sales_date) and chooses which version of the dimension key to use.
+</p>
+</li>
+<li>
+<p>
+SCD Type II dimensions are used when a history of changes and attributes is needed. This is very common, and Type II dimensions are used much of the time.
+</p>
+</li>
+<li>
+<p>
+SCD Type III dimensions are often used when you bring in a second classification system, and you don’t think of it as a “change” so
+much as an additional method of bucketing or classifying.
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_time_dimensions">Time Dimensions.</h4>
+<div class="ulist"><ul>
+<li>
+<p>
+Time dimensions are denormalized Type I dimensions where the natural (and usually the primary) key is the date. Type I is almost always appropriate because the attributes rarely change.
+</p>
+</li>
+<li>
+<p>
+All of the relevant pieces of the date, such as the month name, quarter, and day of the week, are denormalized and included as columns in the table.
+</p>
+</li>
+<li>
+<p>
+The key of 1 of January 2017 would be 20170101.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_snowflake_design">SnowFlake design.</h4>
+<div class="paragraph"><p>You can use one level of normalization on dimensions (anadditional join) for various operational and performance reasons.</p></div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Figure3.8.png" alt="images/Figure3.8.png" />
+</div>
+</div>
+<div class="ulist"><div class="title">Use of snowflake:</div><ul>
+<li>
+<p>
+To reduce the size of dimension tables by factoring out seldom used but really big columns.
+</p>
+</li>
+<li>
+<p>
+To more easily manage a Type I type attribute in an otherwise Type II dimension.Consider the snowflake design in figure 3.8, where we’ve factored out countries from customer. It’s likely that many customer attributes will change over time (including which country the customer lives in) and will need to be managed as Type II dimensions. The attributes of the country, however, such as its name, tend to be Type I changes when they happen (updates, without any history).
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_degenerate_and_combination_junk_dimensions">Degenerate and combination/junk dimensions.</h4>
+<div class="ulist"><div class="title">Degenerate Dimension</div><ul>
+<li>
+<p>
+There are times when creating a whole separate dimension table, including a foreign key reference, and then grouping by attribute just doesn’t make sense for performance reasons.
+</p>
+</li>
+<li>
+<p>
+For the single attribute dimensions (channel and sales type) it seems overkill to maintain entire dimensions with only single-attribute, low-ordinality dimensions. We can include these attributes as columns
+directly in the fact table, eliminating the separate table and additional join entirely.
+</p>
+</li>
+<li>
+<p>
+Mondrian can be configured so that columns in the fact table still show as a separate dimension, but will use the columns directly from the fact table without doing any additional joins.
+</p>
+</li>
+<li>
+<p>
+This only works for small, low-ordinality columns or very large high-growth attributes that grow with the fact table.
+</p>
+</li>
+</ul></div>
+<div class="ulist"><div class="title">Combination/junk dimensions.</div><ul>
+<li>
+<p>
+There’s another technique for taking lots of single-attribute degenerate dimensions, and putting them back into a standard dimension of unrelated attributes.
+</p>
+</li>
+<li>
+<p>
+Junk dimensions are created in a unique way: a Cartesian product of all possible combinations of attributes is created, along with a surrogate key. Then, when you’re loading the fact table, the loading process looks into the junk dimensions to grab the record with the correct set of attributes.
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sumary_2">Sumary.</h3>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_multidimensional_modeling_making_analytics_data_accesible">Multidimensional modeling: making analytics data accesible.</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_a_simple_schema">A simple schema.</h3>
+<div class="sect3">
+<h4 id="_schema_element">Schema element.</h4>
+</div>
+<div class="sect3">
+<h4 id="_cube_element">Cube element.</h4>
+</div>
+<div class="sect3">
+<h4 id="_attribute_element">Attribute element.</h4>
+</div>
+<div class="sect3">
+<h4 id="_dimension_element">Dimension element.</h4>
+</div>
+<div class="sect3">
+<h4 id="_measure_element">Measure element.</h4>
+</div>
+<div class="sect3">
+<h4 id="_physicalschema_element">PhysicalSchema element.</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_anatomy_of_a_schema">Anatomy of a schema.</h3>
+<div class="sect3">
+<h4 id="_xml_schema_files">XML schema files.</h4>
+</div>
+<div class="sect3">
+<h4 id="_structure_of_schema">Structure of schema.</h4>
+</div>
+<div class="sect3">
+<h4 id="_schema_versioning_and_upgrading">Schema versioning and upgrading.</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dimensions_hierachies_and_levels">Dimensions, hierachies and levels.</h3>
+<div class="sect3">
+<h4 id="_hierarchies_and_levels">Hierarchies and levels.</h4>
+</div>
+<div class="sect3">
+<h4 id="_time_dimension">Time dimension.</h4>
+</div>
+<div class="sect3">
+<h4 id="_attribute_hierarchies">Attribute hierarchies.</h4>
+</div>
+<div class="sect3">
+<h4 id="_the_measures_dimension">The measures dimension.</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_summary">Summary.</h3>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_schemas_grow">How schemas grow.</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_schema_evolution">Schema evolution.</h3>
+<div class="sect3">
+<h4 id="_multiple_cubes_in_a_schema">Multiple cubes in a schema.</h4>
+</div>
+<div class="sect3">
+<h4 id="_shared_dimensions">Shared dimensions.</h4>
+</div>
+<div class="sect3">
+<h4 id="_conformed_dimensions">Conformed dimensions.</h4>
+</div>
+<div class="sect3">
+<h4 id="_using_a_dimension_twice_in_the_same_cube">Using a dimension twice in the same cube.</h4>
+</div>
+<div class="sect3">
+<h4 id="_measures_across_multiple_fact_tables">Measures across multiple fact tables.</h4>
+</div>
+<div class="sect3">
+<h4 id="_smart_evolution_multiples_cubes_versus_single_cubes">Smart evolution: multiples cubes versus single cubes.</h4>
+</div>
+<div class="sect3">
+<h4 id="_other_schema_evolution_patterns">Other schema evolution patterns.</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_alternativa_ways_to_store_dimensions">Alternativa ways to store dimensions.</h3>
+<div class="sect3">
+<h4 id="_star_dimensions">Star dimensions.</h4>
+</div>
+<div class="sect3">
+<h4 id="_snowflake_dimensions">Snowflake dimensions.</h4>
+</div>
+<div class="sect3">
+<h4 id="_degenerate_dimensions">Degenerate dimensions.</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_advanced_hierarchy_structures">Advanced hierarchy structures.</h3>
+<div class="sect3">
+<h4 id="_parent_child_hierarchies">Parent-child hierarchies.</h4>
+</div>
+<div class="sect3">
+<h4 id="_ragged_hierarchies">Ragged hierarchies.</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_calculations">Calculations.</h3>
+<div class="sect3">
+<h4 id="_bucketing_attributes">Bucketing attributes.</h4>
+</div>
+<div class="sect3">
+<h4 id="_calculated_members">Calculated members.</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_summary_2">Summary.</h3>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_security_data">Security data.</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_use_of_roles">Use of roles.</h3>
+<div class="sect3">
+<h4 id="_what_8217_s_a_role">What&#8217;s a role.</h4>
+</div>
+<div class="sect3">
+<h4 id="_declaring_roles_in_the_mondrian_schema">Declaring roles in the mondrian schema.</h4>
+</div>
+<div class="sect3">
+<h4 id="_enforcement_of_roles">Enforcement of roles.</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_security_grants">Security grants.</h3>
+<div class="sect3">
+<h4 id="_schema_grants">Schema grants.</h4>
+</div>
+<div class="sect3">
+<h4 id="_cube_grants">Cube grants.</h4>
+</div>
+<div class="sect3">
+<h4 id="_dimension_and_hierarchy_grants">Dimension and hierarchy grants.</h4>
+</div>
+<div class="sect3">
+<h4 id="_member_grants">Member grants.</h4>
+</div>
+<div class="sect3">
+<h4 id="_measure_grants">Measure grants.</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_summary_3">Summary.</h3>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_maximizing_mondrian_performance">Maximizing Mondrian performance.</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_figuring_out_where_the_problem_are">Figuring out where the problem are.</h3>
+<div class="sect3">
+<h4 id="_performance_improvement_process">Performance improvement process.</h4>
+</div>
+<div class="sect3">
+<h4 id="_preparing_for_performance_analysis_and_establishing_current_performance">Preparing for performance  analysis and establishing current performance.</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tunning_the_database">Tunning the database.</h3>
+</div>
+<div class="sect2">
+<h3 id="_aggregate_tables">Aggregate tables.</h3>
+<div class="sect3">
+<h4 id="_creating_aggregate_tables">Creating aggregate tables.</h4>
+</div>
+<div class="sect3">
+<h4 id="_declaring_an_aggregate_table">Declaring an aggregate table.</h4>
+</div>
+<div class="sect3">
+<h4 id="_which_aggregates_should_create">Which aggregates should create.</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_caching">Caching.</h3>
+<div class="sect3">
+<h4 id="_types_of_caches">Types of caches.</h4>
+</div>
+<div class="sect3">
+<h4 id="_external_segment_cache">External segment cache.</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_priming_the_cache">Priming the cache.</h3>
+</div>
+<div class="sect2">
+<h3 id="_flushing_the_cache">Flushing the cache.</h3>
+<div class="sect3">
+<h4 id="_flushing_the_schema_cache">Flushing the schema cache.</h4>
+</div>
+<div class="sect3">
+<h4 id="_flushing_specific_cubes">Flushing specific cubes.</h4>
+</div>
+<div class="sect3">
+<h4 id="_flushing_specific_regions_of_the_cache">Flushing specific regions of the cache.</h4>
+</div>
+<div class="sect3">
+<h4 id="_summary_4">Summary.</h4>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dinamyc_security">Dinamyc security.</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_preparing_for_dynamic_security">Preparing for dynamic security.</h3>
+<div class="sect3">
+<h4 id="_creating_an_action_sequence">Creating an action sequence.</h4>
+</div>
+<div class="sect3">
+<h4 id="_configuring_and_running_the_action_sequence">Configuring and running the action sequence.</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_restricting_data_usion_a_dynamic_schema_processor">Restricting data usion a dynamic schema processor.</h3>
+<div class="sect3">
+<h4 id="_modifying_the_schema_to_support_a_dsp">Modifying the schema to support a DSP.</h4>
+</div>
+<div class="sect3">
+<h4 id="_example_of_dsp">Example of DSP.</h4>
+</div>
+<div class="sect3">
+<h4 id="_configuring_the_dsp">Configuring the DSP.</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_restricting_data_using_dynamic_role_modification">Restricting data using dynamic role modification.</h3>
+<div class="sect3">
+<h4 id="_preparing_the_schema">Preparing the schema.</h4>
+</div>
+<div class="sect3">
+<h4 id="_custom_mdx_connection">Custom MDX connection.</h4>
+</div>
+<div class="sect3">
+<h4 id="_custom_delegate_role_and_custom_hierarchy_access">Custom delegate role and custom hierarchy access.</h4>
+</div>
+<div class="sect3">
+<h4 id="_configuring_the_custom_mdx_connection">Configuring the custom MDX connection.</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_deciding_which_security_approach_to_use">Deciding which security approach to use.</h3>
+</div>
+<div class="sect2">
+<h3 id="_summary_5">Summary.</h3>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_working_with_mondrian_and_pentaho">Working with Mondrian and Pentaho.</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_pentaho_analyzer">Pentaho Analyzer.</h3>
+<div class="sect3">
+<h4 id="_overview_of_pentaho_analyzer">Overview of Pentaho Analyzer.</h4>
+</div>
+<div class="sect3">
+<h4 id="_using_analyzer_for_analysis">Using analyzer for analysis.</h4>
+</div>
+<div class="sect3">
+<h4 id="_charting_with_analyzer">Charting with analyzer.</h4>
+</div>
+<div class="sect3">
+<h4 id="_special_schema_annotations_for_using_analyzer">Special schema annotations for using Analyzer.</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_saiku">Saiku.</h3>
+</div>
+<div class="sect2">
+<h3 id="_community_dashboard_framework">Community DashBoard Framework.</h3>
+<div class="sect3">
+<h4 id="_creating_a_cdf_dashboard">Creating a CDF dashboard.</h4>
+</div>
+<div class="sect3">
+<h4 id="_using_community_data_access">Using community data access.</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pentaho_report_dessigner">Pentaho report dessigner.</h3>
+<div class="sect3">
+<h4 id="_creating_an_olap_data_source">Creating an OLAP data source.</h4>
+</div>
+<div class="sect3">
+<h4 id="_using_parameters">Using parameters.</h4>
+</div>
+<div class="sect3">
+<h4 id="_prd_and_the_dynamic_schema_processor">PRD and the dynamic schema processor.</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pentaho_data_integration">Pentaho Data Integration.</h3>
+</div>
+<div class="sect2">
+<h3 id="_summary_6">Summary.</h3>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_developing_with_mondrian">Developing with Mondrian.</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_calling_mondrian_from_a_thin_client">Calling Mondrian from a thin client.</h3>
+<div class="sect3">
+<h4 id="_xml_for_a_analysis_xmla">XML for a Analysis (XMLA).</h4>
+</div>
+<div class="sect3">
+<h4 id="_configuring_mondrian_as_an_xmla_web_service">Configuring Mondrian as an XMLA web service.</h4>
+</div>
+<div class="sect3">
+<h4 id="_calling_xmla_services_with_ajax">Calling XMLA services with Ajax.</h4>
+</div>
+<div class="sect3">
+<h4 id="_xmla_for_javascript_xmla4js">XMLA for JavaScript (xmla4js).</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_calling_mondrian_from_java_application">Calling Mondrian from Java Application.</h3>
+<div class="sect3">
+<h4 id="_creating_connections_via_olap4j">Creating connections via olap4j.</h4>
+</div>
+<div class="sect3">
+<h4 id="_queryng_data">Queryng data.</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_summary_7">Summary.</h3>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_advanced_analytics">Advanced analytics.</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_advanced_analytics_in_mondrian_with_mdx">Advanced analytics in Mondrian with MDX.</h3>
+<div class="sect3">
+<h4 id="_running_mdx_querys">Running MDX querys.</h4>
+</div>
+<div class="sect3">
+<h4 id="_ratios_and_growth">Ratios and growth.</h4>
+</div>
+<div class="sect3">
+<h4 id="_time_specific_mdx">Time-specific MDX.</h4>
+</div>
+<div class="sect3">
+<h4 id="_advanced_mdx">Advanced MDX.</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_what_if_analysis">What-if analysis.</h3>
+</div>
+<div class="sect2">
+<h3 id="_stadistics_and_machine_learning">Stadistics and machine learning.</h3>
+<div class="sect3">
+<h4 id="_r">R.</h4>
+</div>
+<div class="sect3">
+<h4 id="_weka">Weka.</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_big_data">Big Data.</h3>
+<div class="sect3">
+<h4 id="_analytics_databases">Analytics databases.</h4>
+</div>
+<div class="sect3">
+<h4 id="_hadoop_and_hive">Hadoop and Hive.</h4>
+</div>
+<div class="sect3">
+<h4 id="_nosql_systems_and_hadoop">NoSQL systems and Hadoop.</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_summary_8">Summary.</h3>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_appendix_a_installing_and_running_mondrian">Appendix A: Installing and running Mondrian.</h2>
+<div class="sectionbody">
+</div>
+</div>
+<div class="sect1">
+<h2 id="_appendix_b_online_resources">Appendix B: Online resources.</h2>
+<div class="sectionbody">
+</div>
+</div>
+<div class="sect1">
+<h2 id="_appendix_c_schema_shorcuts">Appendix C: Schema shorcuts.</h2>
+<div class="sectionbody">
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-04-10 16:08:22 CEST
+</div>
+</div>
+</body>
+</html>

@@ -74,10 +74,10 @@ perform analysis at the speed of thought using interactive tools.
 
 ==== Mondrian is secure.
 *   Mondrian has built-in security capabilities, making it ideal for organizations
-with sensitive data.
+with sensitive data. Mondrian uses a role-based approach to restrict data access.
 
 
-==== Mondrian is based on open standarts.
+==== Mondrian is based on open standards.
 
 
 *   Mondrian is based on open standards. It runs on a large variety of application servers and works with most major databases. This means Mondrian won’t lock you into a proprietary solution.
