@@ -1,19 +1,15 @@
 FORMAT: 1A
-HOST: http://example.com
+HOST: http://localhost:8565/mydevelopment/v1
 
 # mydevelopment
 TODO: Add Description
 
 # Group Misc
 
-## Mydevelopment V1 Talks 1 Attachments [/mydevelopment/v1/talks/1/attachments{?page_size}]
+## Talks 1 Attachments [/talks/1/attachments/]
 
-### httplocalhost8565mydevelopmentv1talks1attachmentspagesize1 [POST]
+### UPLOAD ATTACHMENT [POST]
 TODO: Add Description
-+ Parameters
-    + page_size (number, required)
-
-        + Sample: 1
 + Attributes
     + file (string, required)
 
@@ -30,10 +26,25 @@ TODO: Add Description
 
 
 
+### GET ATTACHMENTS [GET]
+TODO: Add Description
 
-## Mydevelopment V1 Attachments 1 [/mydevelopment/v1/attachments/1/]
++ Request (application/json)
+    + Headers
 
-### httplocalhost8565mydevelopmentv1attachments1 [GET]
+            X-AUTH-TOKEN:eyJhbGciOiJIUzI1NiJ9.eyJ1bGFuZyI6ImVuX1VTIiwidWlkIjoiMjUiLCJleHBpcmVzIjoxNDk4OTkwODY3LCJjbGFuZyI6ImVuX1VTIiwiY3JlYXRlZCI6MTQ5ODEyNjg2Nywicm9sZXMiOlsiQURNSU4iXSwibmFtZSI6InRzdGFyayIsInR0bCI6MzYwMCwiZGlkIjoxMjM0NSwiY2lkIjoiMjIyMSJ9.63JZlAbpWygcfADWJrqyy9gaBh8g5P6CS2hcDCUOnQc
+
+
+
+
++ Response 200 
+
+
+
+
+## Attachments 1 [/attachments/1]
+
+### GET ATTACHMENT [GET]
 TODO: Add Description
 
 + Request 
@@ -47,4 +58,46 @@ TODO: Add Description
 + Response 200 
 
 
+
+### DELETE ATTACHMENTS [DELETE]
+TODO: Add Description
+
++ Request (application/json)
+    + Headers
+
+            X-AUTH-TOKEN:eyJhbGciOiJIUzI1NiJ9.eyJ1bGFuZyI6ImVuX1VTIiwidWlkIjoiMjUiLCJleHBpcmVzIjoxNDk4OTkwODY3LCJjbGFuZyI6ImVuX1VTIiwiY3JlYXRlZCI6MTQ5ODEyNjg2Nywicm9sZXMiOlsiQURNSU4iXSwibmFtZSI6InRzdGFyayIsInR0bCI6MzYwMCwiZGlkIjoxMjM0NSwiY2lkIjoiMjIyMSJ9.63JZlAbpWygcfADWJrqyy9gaBh8g5P6CS2hcDCUOnQc
+
+    + Attributes (DELETE ATTACHMENTSRequest)
+
+    + Body
+
+            {
+                "blobstore_id": "dda19328-81e4-4212-bd11-a7f19ace90f1",
+                "name": "vilalta",
+                "_links": {
+                    "self": {
+                        "href": "http://localhost:8565/mydevelopment/v1/attachments/1"
+                    },
+                    "attachments": {
+                        "href": "http://localhost:8565/mydevelopment/v1/attachments/1"
+                    }
+                }
+            }
+
+
++ Response 200 
+
+
+
+
+
+# Data Structures
+
+## DELETE ATTACHMENTSRequest (object)
+
+
+### Properties
++ `blobstore_id` (string, required) 
++ `name` (string, required) 
++ `_links` (object, required) 
 
